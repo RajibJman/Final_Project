@@ -1,6 +1,8 @@
 import logo from './logo.svg';
 import { BrowserRouter,Routes, Route, BrowserRouter as Router, Outlet, Navigate } from 'react-router-dom';
 import './App.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Login from './page/Login';
 import RegistrationPage from './component/registration';
@@ -27,6 +29,8 @@ import Profile from './page/User/Profile';
 import ModulePerformance from './page/Admin/ModulePerformance';
 import MarksAndModules from './page/User/UserResult';
 import Navbar from './component/Navbar';
+import Powerbi from './component/powerbi';
+import PredictionForm from './component/model';
 
 
 
@@ -52,6 +56,13 @@ function App() {
   return (
     <BrowserRouter>
     {/* <NAvbar></NAvbar> */}
+
+    <ToastContainer
+          position="top-right"
+          style={{ marginTop: '3rem' }}
+          limit={1}
+        />
+
     <Routes>
       
         <Route path="/" element={<Login/>}/>
@@ -76,6 +87,8 @@ function App() {
         <Route path="/profile" element={<Profile/>}/>
         <Route path="/performance" element={<AdminProtectedRoute><ModulePerformance/></AdminProtectedRoute>}/>
         <Route path="/userresult" element={<MarksAndModules/>}/>
+        <Route path="/powerbi" element={<Powerbi/>}/>
+        <Route path="/model" element={<PredictionForm/>}/>
 
     </Routes>
     </BrowserRouter>

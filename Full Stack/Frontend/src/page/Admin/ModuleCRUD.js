@@ -54,6 +54,7 @@ function ModuleList() {
   const [endDate, setEndDate] = useState('');
   const [level, setLevel] = useState('basic'); // Default level value
   const [traineeCount, setTraineeCount] = useState('');
+  const [recommendedDate, setRecommendedDate] = useState('');
 
   useEffect(() => {
     fetchModules();
@@ -118,6 +119,33 @@ function ModuleList() {
       alert('Failed to add module. Please try again.');
     }
   };
+
+  
+  const handleRecommendedDate = (e) => {
+    // Make a fetch or axios request to your backend API
+    e.preventDefault();
+
+      const inputData = {
+        moduleName,
+        traineeCount,
+        level,
+        role
+      };
+
+     
+    try {
+      // Make POST request to Flask backend
+      const response = await axios.post('http://localhost:5000/predict', inputData);
+      
+      // Set predicted duration from response
+      setRecommendedDate(response.data.predicted_duration);
+    } catch (error) {
+      console.error('Error fetching prediction:', error);
+      // Handle error gracefully (e.g., show error message)
+    }
+
+  };
+
 
   const updateModule = async () => {
     try {
@@ -234,6 +262,13 @@ function ModuleList() {
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
           />
+
+          {recommendedDate && (
+          <Typography variant="body2" color="textSecondary">
+            Recommended Date: {recommendedDate}
+          </Typography>
+            )}
+
           <TextField
             className={classes.textField}
             margin="dense"
@@ -266,6 +301,10 @@ function ModuleList() {
           <Button onClick={addModule} color="primary">
             Add
           </Button>
+          <Button onClick={handleRecommendedDate} color="primary">
+          Recommended Date
+        </Button>
+
         </DialogActions>
       </Dialog>
 
