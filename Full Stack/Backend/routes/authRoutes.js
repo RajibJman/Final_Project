@@ -38,34 +38,17 @@ router.post('/moduletrainer',requireAuth, adminAuth,addModuleTrainer);
 
 // Route for adding a module
 router.post('/addmodule', requireAuth,adminAuth,addModule);
-
 // Route for getting all modules
 router.get('/modules', getModule);
-
 // Route for updating a module
 router.post('/modules/:Id',requireAuth, adminAuth,updateModule);
-
 // Route for deleting a module
 router.delete('/modules/:Id',requireAuth, adminAuth,deleteModule);
 
 
 
-// router.post('/forgot', passwordResetController.requestPasswordReset);
-// router.post('/reset', passwordResetController.resetPassword);
-
 router.post('/reset-password',passwordResetController.resetPassword);
-
-// // Route for handling forgot password form submission
 router.post('/forgot-password', handleForgotPasswordSubmission);
-
-
-// router.post('/insertQuiz',insertQuizQuestion);
-
-// router.get('/getQuestionsByTopic/:topic',getQuestionsByTopic); 
-
-// router.post('/checkAnswer',checkAnswer);
-// router.get('/topic',getAllTopicNames);
-
 router.post('/addusermodule',requireAuth, adminAuth,addUserModule);
 
 router.post('/createevent',requireAuth, adminAuth,createEvent);
@@ -78,17 +61,12 @@ router.get('/quiz/:topicId', getQuestionsByTopicId);
 router.post('/quiz/:topicId/check-answer', checkAnswerByTopicId);
 router.get('/alltopics', getAllTopicNames);
 
-
-
 // Route to add marks
 router.post('/addmarks', addMarks);
-
 // Route to get all marks
 router.get('/allmarks', getAllMarks);
-
 // Route to get marks by module ID
 router.get('/marks/module/:moduleId', getMarksByModuleId);
-
 // Route to get marks by user ID
 router.get('/marks/user/:userId', getMarksByUserId);
 

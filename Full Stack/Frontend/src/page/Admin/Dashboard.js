@@ -158,49 +158,49 @@ const Dashboard = () => {
         <div style={{ width: '30%',marginTop: '15px' }}>
           <h2 style={{ textAlign: 'center', marginBottom: '15px' }}>Menu</h2>
           <ul style={{ listStyle: 'none', padding: 0 }}>
-            <li style={{ marginBottom: '10px' }}>
+            <li style={{ marginBottom: '5px' }}>
               <Button
                 variant="contained"
-                style={{ backgroundColor: '#2196f3', fontSize: '1.2rem', width: '100%', marginBottom: '10px' }}
+                style={{ backgroundColor: '#2196f3', fontSize: '1.2rem', width: '100%', marginBottom: '5px' }}
                 href="/user"
               >
                 User
               </Button>
             </li>
-            <li style={{ marginBottom: '10px' }}>
+            <li style={{ marginBottom: '5px' }}>
               <Button
                 variant="contained"
-                style={{ backgroundColor: '#4caf50', fontSize: '1.2rem', width: '100%', marginBottom: '10px' }}
+                style={{ backgroundColor: '#4caf50', fontSize: '1.2rem', width: '100%', marginBottom: '5px' }}
                 href="/module"
               >
                 Module
               </Button>
             </li>
-            <li style={{ marginBottom: '10px' }}>
+            <li style={{ marginBottom: '0px' }}>
               <AddModuleTrainer></AddModuleTrainer>
             </li>
-            <li style={{ marginBottom: '10px' }}>
+            <li style={{ marginBottom: '0px' }}>
               <AddUserModule></AddUserModule>
             </li>
-            <li style={{ marginBottom: '10px' }}>
+            <li style={{ marginBottom: '5px' }}>
               <Button
                 variant="contained"
-                style={{ backgroundColor: '#4caf50', fontSize: '1.2rem', width: '100%', marginBottom: '10px' }}
+                style={{ backgroundColor: '#4caf50', fontSize: '1.2rem', width: '100%', marginBottom: '5px' }}
                 href="/performance"
               >
                 Performance
               </Button>
             </li>
-            <li style={{ marginBottom: '10px' }}>
+            <li style={{ marginBottom: '5px' }}>
               <Button
                 variant="contained"
-                style={{ backgroundColor: '#ff9800', fontSize: '1.2rem', width: '100%', marginBottom: '10px' }}
+                style={{ backgroundColor: '#ff9800', fontSize: '1.2rem', width: '100%', marginBottom: '5px' }}
                 href="/addquiz"
               >
                 Add Quiz
               </Button>
             </li>
-            <li style={{ marginBottom: '10px' }}>
+            <li style={{ marginBottom: '0px' }}>
               <QuizModule></QuizModule>
             </li>
             <Button
@@ -210,6 +210,15 @@ const Dashboard = () => {
               >
                 Module Status
               </Button>
+
+              <Button
+                variant="contained"
+                style={{ backgroundColor: '#ff9800', fontSize: '1.2rem', width: '100%', marginBottom: '5px' }}
+                href="/powerbi"
+              >
+                Power bi Visualization
+              </Button>
+              
           </ul>
         </div>
         <div style={{ width: '60%' }}>

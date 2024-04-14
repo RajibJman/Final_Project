@@ -82,7 +82,7 @@ const Login = () => {
         <div className="container-fluid h-100">
           <div className="row justify-content-center align-items-center h-100">
           
-            <div className="col-lg-12 col-md-8 col-xl-5 text-center " style={{borderRadius: '15px', height: '70vh', width: '55%',backgroundColor: 'white'}}>
+            <div className="col-lg-12 col-md-8 col-xl-5 text-center " style={{borderRadius: '15px', height: '85vh', width: '55%',backgroundColor: 'white'}}>
           
             <h1 >ETMS</h1>
               <div className="c" style={{display: 'flex', flexDirection: 'row',height:'85%' }}>

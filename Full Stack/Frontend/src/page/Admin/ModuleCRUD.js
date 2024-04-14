@@ -18,6 +18,7 @@ import {
 } from '@material-ui/core';
 import axios from 'axios';
 import Navbar from '../../component/Navbar';
+// import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   dialogContent: {
@@ -36,6 +37,58 @@ const useStyles = makeStyles((theme) => ({
   actionButtons: {
     '& > *': {
       marginRight: theme.spacing(1), // Apply right margin to buttons
+    },
+  },
+
+  dialogPaper: {
+    minWidth: '500px',
+  },
+  dialogTitle: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.common.white,
+  },
+  dialogContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2),
+  },
+  textField: {
+    marginBottom: theme.spacing(2),
+  },
+  cancelButton: {
+    color: theme.palette.error.main,
+  },
+  addButton: {
+    backgroundColor: theme.palette.success.main,
+    color: theme.palette.common.white,
+    '&:hover': {
+      backgroundColor: theme.palette.success.dark,
+    },
+  },
+  recommendedButton: {
+    color: theme.palette.info.main,
+  },
+
+  dialogTitle: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.common.white,
+  },
+  dialogContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2),
+  },
+  textField: {
+    marginBottom: theme.spacing(2),
+  },
+  cancelButton: {
+    color: theme.palette.error.main,
+  },
+  addButton: {
+    backgroundColor: theme.palette.success.main,
+    color: theme.palette.common.white,
+    '&:hover': {
+      backgroundColor: theme.palette.success.dark,
     },
   },
 }));
@@ -121,30 +174,32 @@ function ModuleList() {
   };
 
   
-  const handleRecommendedDate = (e) => {
-    // Make a fetch or axios request to your backend API
+  const handleRecommendedDate = async (e) => {
     e.preventDefault();
+  
+    const inputData = {
 
-      const inputData = {
-        moduleName,
-        traineeCount,
-        level,
-        role
-      };
+      MODULE_NAME: moduleName,
+      TRAINEE_COUNT: traineeCount,
+      LEVEL: level,
+      ROLE: 'Employee'
+    };
 
-     
+    console.log(inputData.LEVEL);
+  
     try {
       // Make POST request to Flask backend
       const response = await axios.post('http://localhost:5000/predict', inputData);
       
       // Set predicted duration from response
       setRecommendedDate(response.data.predicted_duration);
+      console.log(response.data.predicted_duration)
     } catch (error) {
       console.error('Error fetching prediction:', error);
       // Handle error gracefully (e.g., show error message)
     }
-
   };
+  
 
 
   const updateModule = async () => {
@@ -228,155 +283,169 @@ function ModuleList() {
       </Table>
 
       {/* Add Module Dialog */}
-      <Dialog open={openAdd} onClose={handleAddClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Add Module</DialogTitle>
-        <DialogContent className={classes.dialogContent}>
-          <TextField
-            className={classes.textField}
-            autoFocus
-            margin="dense"
-            id="moduleName"
-            label="Module Name"
-            type="text"
-            fullWidth
-            value={moduleName}
-            onChange={(e) => setModuleName(e.target.value)}
-          />
-          <TextField
-            className={classes.textField}
-            margin="dense"
-            id="startDate"
-            label="Start Date"
-            type="datetime-local"
-            fullWidth
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-          />
-          <TextField
-            className={classes.textField}
-            margin="dense"
-            id="endDate"
-            label="End Date"
-            type="datetime-local"
-            fullWidth
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-          />
+      <Dialog
+      open={openAdd}
+      onClose={handleAddClose}
+      aria-labelledby="form-dialog-title"
+      classes={{ paper: classes.dialogPaper }}
+    >
+      <DialogTitle className={classes.dialogTitle} id="form-dialog-title">
+        Add Module
+      </DialogTitle>
+      <DialogContent className={classes.dialogContent}>
+        <TextField
+          className={classes.textField}
+          autoFocus
+          margin="dense"
+          id="moduleName"
+          label="Module Name"
+          type="text"
+          fullWidth
+          value={moduleName}
+          onChange={(e) => setModuleName(e.target.value)}
+        />
+        <TextField
+          className={classes.textField}
+          margin="dense"
+          id="startDate"
+          label="Start Date"
+          type="datetime-local"
+          fullWidth
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)}
+        />
+        <TextField
+          className={classes.textField}
+          margin="dense"
+          id="endDate"
+          label="End Date"
+          type="datetime-local"
+          fullWidth
+          value={endDate}
+          onChange={(e) => setEndDate(e.target.value)}
+        />
 
-          {recommendedDate && (
+        {recommendedDate && (
           <Typography variant="body2" color="textSecondary">
-            Recommended Date: {recommendedDate}
+            <strong>Recommended hours: {recommendedDate}</strong>
           </Typography>
-            )}
+        )}
 
-          <TextField
-            className={classes.textField}
-            margin="dense"
-            id="level"
-            select
-            label="Level"
-            fullWidth
-            value={level}
-            onChange={(e) => setLevel(e.target.value)}
-          >
-            <MenuItem value="basic">Basic</MenuItem>
-            <MenuItem value="intermediate">Intermediate</MenuItem>
-            <MenuItem value="advanced">Advanced</MenuItem>
-          </TextField>
-          <TextField
-            className={classes.textField}
-            margin="dense"
-            id="traineeCount"
-            label="Trainee Count"
-            type="number"
-            fullWidth
-            value={traineeCount}
-            onChange={(e) => setTraineeCount(e.target.value)}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleAddClose} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={addModule} color="primary">
-            Add
-          </Button>
-          <Button onClick={handleRecommendedDate} color="primary">
-          Recommended Date
+        <TextField
+          className={classes.textField}
+          margin="dense"
+          id="level"
+          select
+          label="Level"
+          fullWidth
+          value={level}
+          onChange={(e) => setLevel(e.target.value)}
+        >
+          <MenuItem value="basic">Basic</MenuItem>
+          <MenuItem value="intermediate">Intermediate</MenuItem>
+          <MenuItem value="advanced">Advanced</MenuItem>
+        </TextField>
+        <TextField
+          className={classes.textField}
+          margin="dense"
+          id="traineeCount"
+          label="Trainee Count"
+          type="number"
+          fullWidth
+          value={traineeCount}
+          onChange={(e) => setTraineeCount(e.target.value)}
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleAddClose} className={classes.cancelButton}>
+          Cancel
         </Button>
-
-        </DialogActions>
-      </Dialog>
+        <Button onClick={addModule} className={classes.addButton}>
+          Add
+        </Button>
+      
+          <Button onClick={handleRecommendedDate} className={classes.recommendedButton}>
+            Recommended Hours
+          </Button>
+  
+      </DialogActions>
+    </Dialog>
 
       {/* Update Module Dialog */}
-      <Dialog open={openUpdate} onClose={handleUpdateClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Update Module</DialogTitle>
-        <DialogContent className={classes.dialogContent}>
-          <TextField
-            className={classes.textField}
-            autoFocus
-            margin="dense"
-            id="updateModuleName"
-            label="Module Name"
-            type="text"
-            fullWidth
-            value={updateModuleName}
-            onChange={(e) => setUpdateModuleName(e.target.value)}
-          />
-          <TextField
-            className={classes.textField}
-            margin="dense"
-            id="updateStartDate"
-            label="Start Date"
-            type="datetime-local"
-            fullWidth
-            value={updateStartDate}
-            onChange={(e) => setUpdateStartDate(e.target.value)}
-          />
-          <TextField
-            className={classes.textField}
-            margin="dense"
-            id="updateEndDate"
-            label="End Date"
-            type="datetime-local"
-            fullWidth
-            value={updateEndDate}
-            onChange={(e) => setUpdateEndDate(e.target.value)}
-          />
-          <TextField
-            className={classes.textField}
-            margin="dense"
-            id="updateLevel"
-            select
-            label="Level"
-            fullWidth
-            value={level}
-            onChange={(e) => setLevel(e.target.value)}
-          >
-            <MenuItem value="basic">Basic</MenuItem>
-            <MenuItem value="intermediate">Intermediate</MenuItem>
-            <MenuItem value="advanced">Advanced</MenuItem>
-          </TextField>
-          <TextField
-            className={classes.textField}
-            margin="dense"
-            id="updateTraineeCount"
-            label="Trainee Count"
-            type="number"
-            fullWidth
-            value={traineeCount}
-            onChange={(e) => setTraineeCount(e.target.value)}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleUpdateClose} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={updateModule} color="primary">
-            Update
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <Dialog open={openUpdate} onClose={handleUpdateClose} aria-labelledby="form-dialog-title"
+      classes={{ paper: classes.dialogPaper }}
+      >
+      <DialogTitle className={classes.dialogTitle} id="form-dialog-title"
+      
+      >
+        Update Module
+      </DialogTitle>
+      <DialogContent className={classes.dialogContent}>
+        <TextField
+          className={classes.textField}
+          autoFocus
+          margin="dense"
+          id="updateModuleName"
+          label="Module Name"
+          type="text"
+          fullWidth
+          value={updateModuleName}
+          onChange={(e) => setUpdateModuleName(e.target.value)}
+        />
+        <TextField
+          className={classes.textField}
+          margin="dense"
+          id="updateStartDate"
+          label="Start Date"
+          type="datetime-local"
+          fullWidth
+          value={updateStartDate}
+          onChange={(e) => setUpdateStartDate(e.target.value)}
+        />
+        <TextField
+          className={classes.textField}
+          margin="dense"
+          id="updateEndDate"
+          label="End Date"
+          type="datetime-local"
+          fullWidth
+          value={updateEndDate}
+          onChange={(e) => setUpdateEndDate(e.target.value)}
+        />
+        <TextField
+          className={classes.textField}
+          margin="dense"
+          id="updateLevel"
+          select
+          label="Level"
+          fullWidth
+          value={level}
+          onChange={(e) => setLevel(e.target.value)}
+        >
+          <MenuItem value="basic">Basic</MenuItem>
+          <MenuItem value="intermediate">Intermediate</MenuItem>
+          <MenuItem value="advanced">Advanced</MenuItem>
+        </TextField>
+        <TextField
+          className={classes.textField}
+          margin="dense"
+          id="updateTraineeCount"
+          label="Trainee Count"
+          type="number"
+          fullWidth
+          value={traineeCount}
+          onChange={(e) => setTraineeCount(e.target.value)}
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleUpdateClose} className={classes.cancelButton}>
+          Cancel
+        </Button>
+        <Button onClick={updateModule} className={classes.addButton}>
+          Update
+        </Button>
+      </DialogActions>
+    </Dialog>
     </div>
   );
 }

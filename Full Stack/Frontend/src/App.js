@@ -66,29 +66,23 @@ function App() {
     <Routes>
       
         <Route path="/" element={<Login/>}/>
-        
         <Route path="/register" element={<AdminProtectedRoute><RegistrationPage/></AdminProtectedRoute>}/>
         <Route path="/passReset" element={<PasswordResetForm/>}/>
         <Route path="/forgotpassword" element={<ForgotPassword/>}/>
         <Route path="/dashboard" element={<AdminProtectedRoute><Dashboard/></AdminProtectedRoute>}/>
         <Route path="/userdashboard" element={<UserProtectedRoute><UserDashboard/></UserProtectedRoute>}/>
-        {/* <Route path="/navbar" element={<Navbar/>}/> */}
-        <Route path="/addmodule" element={<AdminProtectedRoute><AddModule/></AdminProtectedRoute>}/>
         <Route path="/addusermodule" element={<AdminProtectedRoute><AddUserModule/></AdminProtectedRoute>}/>
         <Route path="/addmoduletrainer" element={<AdminProtectedRoute><AddModuleTrainer/></AdminProtectedRoute>}/>
         <Route path="/addquiz" element={<AdminProtectedRoute><AddQuizForm/></AdminProtectedRoute>}/>
         <Route path="/user" element={<AdminProtectedRoute><UserList/></AdminProtectedRoute>}/>
         <Route path="/module" element={<AdminProtectedRoute><ModuleList/></AdminProtectedRoute>}/>
-        {/* <Route path="/usermodule" element={<AdminProtectedRoute><UserModule/></AdminProtectedRoute>}/> */}
         <Route path="/modulestatus" element={<ModuleStatus/>}/>
-        {/* <Route path="/quizmodule" element={<QuizModule/>}/> */}
-        <Route path="/assesment" element={<AllModule/>}/>
-        <Route path="/quiz" element={<QuizPage/>}/>
-        <Route path="/profile" element={<Profile/>}/>
+        <Route path="/assesment" element={<UserProtectedRoute><AllModule/></UserProtectedRoute>}/>
+        <Route path="/quiz" element={<UserProtectedRoute><QuizPage/></UserProtectedRoute>}/>
+        <Route path="/profile" element={<UserProtectedRoute><Profile/></UserProtectedRoute>}/>
         <Route path="/performance" element={<AdminProtectedRoute><ModulePerformance/></AdminProtectedRoute>}/>
-        <Route path="/userresult" element={<MarksAndModules/>}/>
-        <Route path="/powerbi" element={<Powerbi/>}/>
-        <Route path="/model" element={<PredictionForm/>}/>
+        <Route path="/userresult" element={<UserProtectedRoute><MarksAndModules/></UserProtectedRoute>}/>
+        <Route path="/powerbi" element={<AdminProtectedRoute><Powerbi/></AdminProtectedRoute>}/>
 
     </Routes>
     </BrowserRouter>
